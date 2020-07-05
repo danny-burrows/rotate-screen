@@ -1,23 +1,24 @@
-# Rotate Screen
-A small Python package for rotating the screen.
+<div align="center">
+  <img src="https://i.imgur.com/zOCWUye.png">
+</div>
 
 ## Platforms Supported
 Windows is currently the only platform supported.
 
 ## Installation
-Clone the repo or download as zip then navigate to the project root directory and use the following command...
+Clone the repo, download as a zip file, or use the following command...
 ```sh
 pip install rotate-screen
 ```
 
 ## Example: ![Ctrl+Alt+Arrow Shortcut](https://github.com/TheBrokenEstate/rotate-screen/blob/master/examples/shortcuts.py)
-This is a simple example that implements the 'Ctrl+Alt+Arrow' shortcut for rotating the display. Some graphics cards don't come with this capability by default.
+This is a simple example that implements the 'Ctrl+Alt+Arrow' keyboard shortcut for rotating the display. This is because some graphics cards don't come with this capability by default.
 
 This example requires the keyboard module...
 ```sh
 pip install keyboard
 ```
-Here is the code! This module adds hotkeys to rotate the main display to the corresponding arrow keys.
+Here is the code! It adds hotkeys to rotate the primary display in the desired direction upon the user entering Ctrl, Alt and an arrow key. It then waits until the script is exited.
 ```python
 import rotatescreen
 import keyboard
