@@ -7,10 +7,10 @@ Windows is currently the only platform supported.
 ## Installation
 Clone the repo or download as zip then navigate to the project root directory and use the following command...
 ```sh
-pip install .
+pip install rotate-screen
 ```
 
-## Example: ![Ctrl+Alt+Arrow Shortcut](https://github.com/TheBrokenEstate/rotate-screen/examples/shortcut.py)
+## Example: ![Ctrl+Alt+Arrow Shortcut](https://github.com/TheBrokenEstate/rotate-screen/blob/master/examples/shortcuts.py)
 This is a simple example that implements the 'Ctrl+Alt+Arrow' shortcut for rotating the display. Some graphics cards don't come with this capability by default.
 
 This example requires the keyboard module...
@@ -32,7 +32,7 @@ keyboard.add_hotkey('ctrl+alt+left', screen.set_portrait, suppress=True)
 keyboard.wait()
 ```
 
-## Example: ![Do A Barrel Roll](https://github.com/TheBrokenEstate/rotate-screen/examples/do-a-barrel-roll.py)
+## Example: ![Do A Barrel Roll](https://github.com/TheBrokenEstate/rotate-screen/blob/master/examples/do-a-barrel-roll.py)
 This was a little joke script to show off some more of the modules functionality, due to the way windows rotates the display this is a pretty horrific looking, but entertaining. :)
 ```python
 import rotatescreen
