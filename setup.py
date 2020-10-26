@@ -6,7 +6,7 @@ from setuptools import find_packages, setup, Command
 
 NAME = 'rotate-screen'
 DESCRIPTION = 'A small Python package for rotating the screen.'
-URL = 'https://github.com/TheBrokenEstate/rotate-screen'
+URL = 'https://github.com/danny-burrows/rotate-screen'
 EMAIL = 'dannyburrows@protonmail.com'
 AUTHOR = 'Dan Burrows'
 REQUIRES_PYTHON = '>=3.6.0'
