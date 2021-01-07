@@ -11,6 +11,37 @@ Clone the repo, download as a zip file, or use the following command...
 pip install rotate-screen
 ```
 
+## Documentation
+The package comes with some functions to get available displays in the form of \<rotatescreen Display\> objects. You can then use the \<rotatescreen Display\> object methods to change the orientation of the display. 
+
+#### Here are a few of the available package functions...
+
+| Function | Returns |
+|----------|---------|
+| `rotatescreen.get_displays()` | Returns a list of \<rotatescreen Display\> objects for each available display.  |
+| `rotatescreen.get_secondary_displays()` | Returns a list of \<rotatescreen Display\> objects for every display apart from the primary display. |
+| `rotatescreen.get_primary_display()` | Returns a \<rotatescreen Display\> object for the primary display. |
+
+#### Here are the available methods (no return value) for a \<rotatescreen Display\> object...
+
+| Procedure | Arguments | Result |
+|-----------|-----------|--------|
+| `.rotate_to(pos)`         | pos (int): Degrees to rotate the screen to. Must be one of 0, 90, 180, 270. | Rotates the screen to desired. |
+| `.set_landscape()`        || Rotates the screen to landscape. |
+| `.set_landscape_flipped()`|| Rotates the screen to upside down landscape.|
+| `.set_portrait()`         || Rotates the screen to portrait.|
+| `.set_portrait_flipped()` || Rotates the screen to upside down portrait.|
+
+#### Here are the available attributes for a \<rotatescreen Display\> object...
+
+| Attribute | Returns |
+|-----------|---------|
+| `.current_orientation()` | Returns (int) the current orientation of the display, will be one of 0, 90, 180, 270. |
+| `.is_primary()`          | Returns (bool) if the display is the primary monitor. |
+| `.info()`                | Returns (dict) monitor info. |
+| `.device()`              | Returns monitor device info. |
+| `.device_description()`  | Returns (str) visable name for display device. |
+
 ## Example: ![Ctrl+Alt+Arrow Shortcut](https://github.com/TheBrokenEstate/rotate-screen/blob/master/examples/shortcuts.py)
 This is a simple example that implements the 'Ctrl+Alt+Arrow' keyboard shortcut for rotating the display. This is because some graphics cards don't come with this capability by default.
 
