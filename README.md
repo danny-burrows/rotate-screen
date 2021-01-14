@@ -36,11 +36,11 @@ The package comes with some functions to get available displays in the form of \
 
 | Attribute | Returns |
 |-----------|---------|
-| `.current_orientation()` | Returns (int) the current orientation of the display, will be one of 0, 90, 180, 270. |
-| `.is_primary()`          | Returns (bool) if the display is the primary monitor. |
-| `.info()`                | Returns (dict) monitor info. |
-| `.device()`              | Returns monitor device info. |
-| `.device_description()`  | Returns (str) visable name for display device. |
+| `.current_orientation` | Returns (int) the current orientation of the display, will be one of 0, 90, 180, 270. |
+| `.is_primary`          | Returns (bool) if the display is the primary monitor. |
+| `.info`                | Returns (dict) monitor info. |
+| `.device`              | Returns monitor device info. |
+| `.device_description`  | Returns (str) visable name for display device. |
 
 ## Example: ![Ctrl+Alt+Arrow Shortcut](https://github.com/TheBrokenEstate/rotate-screen/blob/master/examples/shortcuts.py)
 This is a simple example that implements the 'Ctrl+Alt+Arrow' keyboard shortcut for rotating the display. This is because some graphics cards don't come with this capability by default.
