@@ -2,7 +2,7 @@
 
 <style>
 #rot {
-    animation: rotate 2s 1;
+    animation: rotate 2s;
     transform-origin: 18% 55%;
 }
 
