@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/zOCWUye.png">
+  <img src="rotate-screen.svg">
 </div>
 
 ## Platforms Supported
