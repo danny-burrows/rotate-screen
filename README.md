@@ -2,6 +2,10 @@
   <img src="rotate-screen.svg">
 </div>
 
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rotate-screen)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/rotate-screen)
+![GitHub](https://img.shields.io/github/license/danny-burrows/rotate-screen)
+
 ## Platforms Supported
 Windows is currently the only platform supported.
 
