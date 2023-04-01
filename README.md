@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="rotate-screen.svg">
+  <img src="rotate-screen.svg" alt="Rotate Screen">
 </div>
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rotate-screen)
