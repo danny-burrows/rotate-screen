@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import os
-from setuptools import find_packages, setup, Command
+from setuptools import find_packages, setup
 
 NAME = 'rotate-screen'
 DESCRIPTION = 'A small Python package for rotating the screen.'
 URL = 'https://github.com/danny-burrows/rotate-screen'
 EMAIL = 'dannyburrows@protonmail.com'
-AUTHOR = 'Dan Burrows'
+AUTHOR = 'Danny Burrows'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 # Optional package for the examples...
 EXTRAS = {
@@ -43,6 +43,9 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11'
     ]
 )
