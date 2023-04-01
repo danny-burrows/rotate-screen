@@ -2,15 +2,17 @@ from typing import Dict, List, Tuple
 import win32api
 import win32con
 
+import _win32typing
+
 
 class Display:
-    def __init__(self, hMonitor):
+    def __init__(self, hMonitor: _win32typing.PyHANDLE):
         self.hMonitor = hMonitor
 
     def __repr__(self):
         return f"<'{self.device_description[0]}' object>"
 
-    def rotate_to(self, degrees) -> None:
+    def rotate_to(self, degrees: int) -> None:
         if degrees == 90:
             rotation_val = win32con.DMDO_90
         elif degrees == 180:
@@ -54,7 +56,7 @@ class Display:
         return self.info["Device"]
 
     @property
-    def is_primary(self) -> str:
+    def is_primary(self) -> int:
         # The only flag is MONITORINFOF_PRIMARY which is 1 only for the primary monitor.
         return self.info["Flags"]
 
@@ -64,12 +66,12 @@ class Display:
         return display_device.DeviceString, display_device.DeviceID
 
     @property
-    def devicemodeW(self):
+    def devicemodeW(self) -> _win32typing.PyDEVMODE:
         return win32api.EnumDisplaySettings(self.device, win32con.ENUM_CURRENT_SETTINGS)
 
 
 def get_displays() -> List[Display]:
-    displays: List[Display] = [Display(hMonitor) for hMonitor, _, _ in win32api.EnumDisplayMonitors()]
+    displays = [Display(hMonitor) for hMonitor, _, _ in win32api.EnumDisplayMonitors()]
     return displays
 
 
@@ -80,5 +82,5 @@ def get_primary_display() -> Display | None:
 
 
 def get_secondary_displays() -> List[Display]:
-    displays: List[Display] = [display for display in get_displays() if not display.is_primary]
+    displays = [display for display in get_displays() if not display.is_primary]
     return displays
