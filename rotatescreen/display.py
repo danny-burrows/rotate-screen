@@ -1,32 +1,18 @@
+from typing import Dict, List, Tuple
 import win32api
 import win32con
 
-
-def get_displays():
-    displays = [Display(hMonitor) for hMonitor,_,_ in win32api.EnumDisplayMonitors()]
-    return displays
-
-
-def get_primary_display():
-    for display in get_displays():
-        if display.is_primary:
-            return display
-
-
-def get_secondary_displays():
-    displays = [display for display in get_displays() if not display.is_primary]
-    return displays
+import _win32typing
 
 
 class Display:
-
-    def __init__(self, hMonitor):
+    def __init__(self, hMonitor: _win32typing.PyHANDLE):
         self.hMonitor = hMonitor
 
     def __repr__(self):
         return f"<'{self.device_description[0]}' object>"
 
-    def rotate_to(self, degrees):
+    def rotate_to(self, degrees: int) -> None:
         if degrees == 90:
             rotation_val = win32con.DMDO_90
         elif degrees == 180:
@@ -44,41 +30,57 @@ class Display:
         dm.DisplayOrientation = rotation_val
         win32api.ChangeDisplaySettingsEx(self.device, dm)
 
-    def set_landscape(self):
+    def set_landscape(self) -> None:
         self.rotate_to(0)
 
-    def set_landscape_flipped(self):
+    def set_landscape_flipped(self) -> None:
         self.rotate_to(180)
 
-    def set_portrait(self):
+    def set_portrait(self) -> None:
         self.rotate_to(90)
 
-    def set_portrait_flipped(self):
+    def set_portrait_flipped(self) -> None:
         self.rotate_to(270)
 
     @property
-    def current_orientation(self):
-        state = self.devicemodeW.DisplayOrientation
+    def current_orientation(self) -> int:
+        state: int = self.devicemodeW.DisplayOrientation
         return state * 90
 
     @property
-    def info(self):
+    def info(self) -> Dict:
         return win32api.GetMonitorInfo(self.hMonitor)
 
     @property
-    def device(self):
+    def device(self) -> str:
         return self.info["Device"]
 
     @property
-    def is_primary(self):
+    def is_primary(self) -> int:
         # The only flag is MONITORINFOF_PRIMARY which is 1 only for the primary monitor.
         return self.info["Flags"]
 
     @property
-    def device_description(self):
+    def device_description(self) -> Tuple[str, str]:
         display_device = win32api.EnumDisplayDevices(self.device)
         return display_device.DeviceString, display_device.DeviceID
 
     @property
-    def devicemodeW(self):
+    def devicemodeW(self) -> _win32typing.PyDEVMODE:
         return win32api.EnumDisplaySettings(self.device, win32con.ENUM_CURRENT_SETTINGS)
+
+
+def get_displays() -> List[Display]:
+    displays = [Display(hMonitor) for hMonitor, _, _ in win32api.EnumDisplayMonitors()]
+    return displays
+
+
+def get_primary_display() -> Display | None:
+    for display in get_displays():
+        if display.is_primary:
+            return display
+
+
+def get_secondary_displays() -> List[Display]:
+    displays = [display for display in get_displays() if not display.is_primary]
+    return displays
