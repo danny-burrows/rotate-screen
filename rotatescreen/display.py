@@ -2,11 +2,10 @@ from typing import Dict, List, Tuple
 import win32api
 import win32con
 
-import _win32typing
-
 
 class Display:
-    def __init__(self, hMonitor: _win32typing.PyHANDLE):
+
+    def __init__(self, hMonitor):
         self.hMonitor = hMonitor
 
     def __repr__(self):
@@ -66,7 +65,7 @@ class Display:
         return display_device.DeviceString, display_device.DeviceID
 
     @property
-    def devicemodeW(self) -> _win32typing.PyDEVMODE:
+    def devicemodeW(self):
         return win32api.EnumDisplaySettings(self.device, win32con.ENUM_CURRENT_SETTINGS)
 
 
