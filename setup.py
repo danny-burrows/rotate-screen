@@ -9,8 +9,8 @@ DESCRIPTION = 'A small Python package for rotating the screen.'
 URL = 'https://github.com/danny-burrows/rotate-screen'
 EMAIL = 'dannyburrows@protonmail.com'
 AUTHOR = 'Danny Burrows'
-REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.1.1'
+REQUIRES_PYTHON = '>=3.7.0'
+VERSION = '0.1.2'
 
 # Optional package for the examples...
 EXTRAS = {
@@ -41,7 +41,6 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
