@@ -94,8 +94,8 @@ def get_displays() -> List[Display]:
     displays = []
     for output_id in res.outputs:        
         output_info = d.xrandr_get_output_info(output_id, res.config_timestamp)    
-        if crtc_id := output_info.crtc:
-            displays.append(Display(output_id, crtc_id))
+        if output_info.crtc:
+            displays.append(Display(output_id, output_info.crtc))
     return displays
 
 
