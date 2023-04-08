@@ -1,5 +1,5 @@
 from Xlib import display
-from Xlib.ext import randr 
+from Xlib.ext import randr
 from typing import Dict, List, Tuple
 
 # TODO: Is having these at the global level ok?
@@ -30,13 +30,12 @@ class Display:
             rotation_val = randr.Rotate_0
         else:
             raise ValueError("Display can only be rotated to 0, 90, 180, or 270 degrees.")
-        
-        # Get the CRTC's current mode and position
+
+        # Get this CRTC's current mode and position
         crtc = d.xrandr_get_crtc_info(self.crtc_id, res.config_timestamp)
         x, y, mode = crtc.x, crtc.y, crtc.mode
-        
-        # Rotate the CRTC 90 degrees clockwise
-        d.xrandr_set_crtc_config(    
+
+        d.xrandr_set_crtc_config(
             crtc=self.crtc_id,
             config_timestamp=res.config_timestamp,
             x=x,
@@ -62,7 +61,7 @@ class Display:
     def current_orientation(self) -> int:
         # Get the CRTC's current mode information
         mode_info = d.xrandr_get_crtc_info(self.crtc_id, res.config_timestamp)
-        
+
         # Get the CRTC's current rotation
         rotation = mode_info.rotation
         if rotation == randr.Rotate_0:
@@ -76,24 +75,19 @@ class Display:
 
     @property
     def is_primary(self) -> bool:
-        # Create an X display and get the root window
-        root = d.screen().root
-
-        # Get the primary output
         primary_output = root.xrandr_get_output_primary().output
-        
         return self.output_id == primary_output
 
     @property
     def device_description(self) -> Tuple[str, str]:
-        output_info = d.xrandr_get_output_info(self.output_id, res.config_timestamp)    
+        output_info = d.xrandr_get_output_info(self.output_id, res.config_timestamp)
         return output_info.name, self.crtc_id
 
 
 def get_displays() -> List[Display]:
     displays = []
-    for output_id in res.outputs:        
-        output_info = d.xrandr_get_output_info(output_id, res.config_timestamp)    
+    for output_id in res.outputs:
+        output_info = d.xrandr_get_output_info(output_id, res.config_timestamp)
         if output_info.crtc:
             displays.append(Display(output_id, output_info.crtc))
     return displays
