@@ -10,7 +10,11 @@ URL = 'https://github.com/danny-burrows/rotate-screen'
 EMAIL = 'dannyburrows@protonmail.com'
 AUTHOR = 'Danny Burrows'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '0.1.3'
+VERSION = '0.1.4'
+
+INSTALL_REQUIRES = [
+    "pywin32;platform_system=='Windows'"
+]
 
 # Optional package for the examples...
 EXTRAS = {
@@ -32,6 +36,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS,
     license='MIT',
     classifiers=[
@@ -45,6 +50,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11'
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12'
     ]
 )
