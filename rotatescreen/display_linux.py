@@ -2,11 +2,9 @@ from Xlib import display
 from Xlib.ext import randr
 from typing import Dict, List, Tuple
 
-# TODO: Is having these at the global level ok?
+# Create an X display and get the root window + its resources
 d = display.Display()
-# Create an X display and get the root window
 root = d.screen().root
-# Get the resources for the root window
 res = root.xrandr_get_screen_resources()
 
 
