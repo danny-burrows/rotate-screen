@@ -101,6 +101,12 @@ class Display:
         output_info = d.xrandr_get_output_info(self.output_id, res.config_timestamp)
         return output_info.name, self.crtc_id
 
+    # xlib-style aliases
+    normal = set_landscape
+    inverted = set_landscape
+    left = set_portrait
+    right = set_portrait_flipped
+
 
 def get_displays() -> List[Display]:
     displays = []

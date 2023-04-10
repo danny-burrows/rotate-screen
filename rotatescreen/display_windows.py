@@ -68,6 +68,12 @@ class Display:
     def devicemodeW(self):
         return win32api.EnumDisplaySettings(self.device, win32con.ENUM_CURRENT_SETTINGS)
 
+    # xlib-style aliases
+    normal = set_landscape
+    inverted = set_landscape
+    left = set_portrait
+    right = set_portrait_flipped
+
 
 def get_displays() -> List[Display]:
     displays = [Display(hMonitor) for hMonitor, _, _ in win32api.EnumDisplayMonitors()]
