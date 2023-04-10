@@ -10,10 +10,11 @@ URL = 'https://github.com/danny-burrows/rotate-screen'
 EMAIL = 'dannyburrows@protonmail.com'
 AUTHOR = 'Danny Burrows'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '0.1.4'
+VERSION = '0.2.0'
 
 INSTALL_REQUIRES = [
-    "pywin32;platform_system=='Windows'"
+    "pywin32;platform_system=='Windows'",
+    "xlib;platform_system=='Linux'"
 ]
 
 # Optional package for the examples...
@@ -41,7 +42,11 @@ setup(
     license='MIT',
     classifiers=[
         'License :: OSI Approved :: MIT License',
+        'Topic :: Software Development :: Libraries',
         'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX :: Linux',
+        'Environment :: Win32 (MS Windows)',
+        'Environment :: X11 Applications',
         'Topic :: Desktop Environment',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
