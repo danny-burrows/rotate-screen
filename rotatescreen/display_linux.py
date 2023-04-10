@@ -31,18 +31,32 @@ class Display:
         else:
             raise ValueError("Display can only be rotated to 0, 90, 180, or 270 degrees.")
 
-        # Get this CRTC's current mode and position
-        crtc = d.xrandr_get_crtc_info(self.crtc_id, res.config_timestamp)
-        x, y, mode = crtc.x, crtc.y, crtc.mode
+        # NOTE: seems to need to be done as calling self.crtc_info too many times results in https://github.com/python-xlib/python-xlib/issues/241
+        crtc_info = self.crtc_info
+
+        # Set screen size, if needed...
+        if (self.current_orientation in (0, 180) and rotation_val in (randr.Rotate_90, randr.Rotate_270)) \
+                or (self.current_orientation in (90, 270) and rotation_val in (randr.Rotate_0, randr.Rotate_180)):
+            # Start with the flipped screen max's
+            max_w = crtc_info.x + crtc_info.height
+            max_h = crtc_info.y + crtc_info.width
+            for display in get_displays():
+                display_crtc_info = display.crtc_info
+                max_w = display_crtc_info.x + display_crtc_info.width if display_crtc_info.x + display_crtc_info.width > max_w else max_w
+                max_h = display_crtc_info.y + display_crtc_info.height if display_crtc_info.y + display_crtc_info.height > max_h else max_h
+
+            # TODO: Need to calculate width_in_millimeters and height_in_millimeters! Perhaps can be done using DPI...
+            root.xrandr_set_screen_size(width=max_w, height=max_h,
+                                        width_in_millimeters=max_w, height_in_millimeters=max_h)
 
         d.xrandr_set_crtc_config(
             crtc=self.crtc_id,
-            config_timestamp=res.config_timestamp,
-            x=x,
-            y=y,
-            mode=mode,
             rotation=rotation_val,
-            outputs=crtc.outputs
+            x=crtc_info.x,
+            y=crtc_info.y,
+            mode=crtc_info.mode,
+            outputs=crtc_info.outputs,
+            config_timestamp=res.config_timestamp,
         )
 
     def set_landscape(self) -> None:
@@ -56,6 +70,10 @@ class Display:
 
     def set_portrait_flipped(self) -> None:
         self.rotate_to(270)
+
+    @property
+    def crtc_info(self):
+        return d.xrandr_get_crtc_info(self.crtc_id, res.config_timestamp)
 
     @property
     def current_orientation(self) -> int:
