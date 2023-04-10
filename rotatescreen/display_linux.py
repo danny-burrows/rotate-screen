@@ -43,9 +43,18 @@ class Display:
                 max_w = max(max_w, display_crtc_info.x + display_crtc_info.width)
                 max_h = max(max_h, display_crtc_info.y + display_crtc_info.height)
 
-            # TODO: Need to calculate width_in_millimeters and height_in_millimeters! Perhaps can be done using DPI...
-            root.xrandr_set_screen_size(width=max_w, height=max_h,
-                                        width_in_millimeters=max_w, height_in_millimeters=max_h)
+            screen_size_range = root.xrandr_get_screen_size_range()
+
+            # NOTE: Chosen to allow xlib to omit parts of the screen that overflow max screen size instead of erroring.
+            width = min(max(max_w, screen_size_range.min_width), screen_size_range.max_width)
+            height = min(max(max_h, screen_size_range.min_height), screen_size_range.max_height)
+
+            dpi = 96.0
+            width_mm = int((25.4 * width) / dpi)
+            height_mm = int((25.4 * height) / dpi)
+
+            root.xrandr_set_screen_size(width=width, height=height,
+                                        width_in_millimeters=width_mm, height_in_millimeters=height_mm)
 
         d.xrandr_set_crtc_config(
             crtc=self.crtc_id,
