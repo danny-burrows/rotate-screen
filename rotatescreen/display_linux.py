@@ -40,8 +40,8 @@ class Display:
             max_h = crtc_info.y + crtc_info.width
             for display in get_displays():
                 display_crtc_info = display.crtc_info
-                max_w = display_crtc_info.x + display_crtc_info.width if display_crtc_info.x + display_crtc_info.width > max_w else max_w
-                max_h = display_crtc_info.y + display_crtc_info.height if display_crtc_info.y + display_crtc_info.height > max_h else max_h
+                max_w = max(max_w, display_crtc_info.x + display_crtc_info.width)
+                max_h = max(max_h, display_crtc_info.y + display_crtc_info.height)
 
             # TODO: Need to calculate width_in_millimeters and height_in_millimeters! Perhaps can be done using DPI...
             root.xrandr_set_screen_size(width=max_w, height=max_h,
