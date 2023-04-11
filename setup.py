@@ -42,12 +42,12 @@ setup(
     license='MIT',
     classifiers=[
         'License :: OSI Approved :: MIT License',
+        'Topic :: Desktop Environment',
         'Topic :: Software Development :: Libraries',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
         'Environment :: Win32 (MS Windows)',
         'Environment :: X11 Applications',
-        'Topic :: Desktop Environment',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',

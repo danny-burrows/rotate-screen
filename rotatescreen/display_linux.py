@@ -56,7 +56,7 @@ class Display:
             root.xrandr_set_screen_size(width=width, height=height,
                                         width_in_millimeters=width_mm, height_in_millimeters=height_mm)
 
-        d.xrandr_set_crtc_config(
+        set_crtc_config_result = d.xrandr_set_crtc_config(
             crtc=self.crtc_id,
             rotation=rotation_val,
             x=crtc_info.x,
@@ -65,6 +65,7 @@ class Display:
             outputs=crtc_info.outputs,
             config_timestamp=res.config_timestamp,
         )
+        assert set_crtc_config_result.status == 0, f"xrandr failed to set crtc config for crtc id '{self.crtc_id}' on Display '{self}'"
 
     def set_landscape(self) -> None:
         self.rotate_to(0)
