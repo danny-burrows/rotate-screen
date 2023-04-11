@@ -1,6 +1,6 @@
 from Xlib import display
 from Xlib.ext import randr
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 # Create an X display and get the root window + its resources
 d = display.Display()
@@ -11,8 +11,8 @@ res = root.xrandr_get_screen_resources()
 class Display:
 
     def __init__(self, output_id, crtc_id):
-        self.output_id = output_id
-        self.crtc_id = crtc_id
+        self._output_id = output_id
+        self._crtc_id = crtc_id
 
     def __repr__(self):
         return f"<'{self.device_description[0]}' object>"
@@ -29,8 +29,8 @@ class Display:
         else:
             raise ValueError("Display can only be rotated to 0, 90, 180, or 270 degrees.")
 
-        # NOTE: seems to need to be done as calling self.crtc_info too many times results in https://github.com/python-xlib/python-xlib/issues/241
-        crtc_info = self.crtc_info
+        # NOTE: seems to need to be done as calling self._crtc_info too many times results in https://github.com/python-xlib/python-xlib/issues/241
+        crtc_info = self._crtc_info
 
         # Set screen size, if needed...
         if (self.current_orientation in (0, 180) and rotation_val in (randr.Rotate_90, randr.Rotate_270)) \
@@ -39,7 +39,7 @@ class Display:
             max_w = crtc_info.x + crtc_info.height
             max_h = crtc_info.y + crtc_info.width
             for display in get_displays():
-                display_crtc_info = display.crtc_info
+                display_crtc_info = display._crtc_info
                 max_w = max(max_w, display_crtc_info.x + display_crtc_info.width)
                 max_h = max(max_h, display_crtc_info.y + display_crtc_info.height)
 
@@ -57,7 +57,7 @@ class Display:
                                         width_in_millimeters=width_mm, height_in_millimeters=height_mm)
 
         set_crtc_config_result = d.xrandr_set_crtc_config(
-            crtc=self.crtc_id,
+            crtc=self._crtc_id,
             rotation=rotation_val,
             x=crtc_info.x,
             y=crtc_info.y,
@@ -65,7 +65,7 @@ class Display:
             outputs=crtc_info.outputs,
             config_timestamp=res.config_timestamp,
         )
-        assert set_crtc_config_result.status == 0, f"xrandr failed to set crtc config for crtc id '{self.crtc_id}' on Display '{self}'"
+        assert set_crtc_config_result.status == 0, f"xrandr failed to set crtc config for crtc id '{self._crtc_id}' on Display '{self}'"
 
     def set_landscape(self) -> None:
         self.rotate_to(0)
@@ -80,13 +80,13 @@ class Display:
         self.rotate_to(270)
 
     @property
-    def crtc_info(self):
-        return d.xrandr_get_crtc_info(self.crtc_id, res.config_timestamp)
+    def _crtc_info(self):
+        return d.xrandr_get_crtc_info(self._crtc_id, res.config_timestamp)
 
     @property
     def current_orientation(self) -> int:
         # Get the CRTC's current mode information
-        mode_info = d.xrandr_get_crtc_info(self.crtc_id, res.config_timestamp)
+        mode_info = d.xrandr_get_crtc_info(self._crtc_id, res.config_timestamp)
 
         # Get the CRTC's current rotation
         rotation = mode_info.rotation
@@ -102,12 +102,12 @@ class Display:
     @property
     def is_primary(self) -> bool:
         primary_output = root.xrandr_get_output_primary().output
-        return self.output_id == primary_output
+        return self._output_id == primary_output
 
     @property
     def device_description(self) -> Tuple[str, str]:
-        output_info = d.xrandr_get_output_info(self.output_id, res.config_timestamp)
-        return output_info.name, self.crtc_id
+        output_info = d.xrandr_get_output_info(self._output_id, res.config_timestamp)
+        return output_info.name, str(self._crtc_id)
 
     # xlib-style aliases
     normal = set_landscape
