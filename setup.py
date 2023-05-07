@@ -10,7 +10,7 @@ URL = 'https://github.com/danny-burrows/rotate-screen'
 EMAIL = 'dannyburrows@protonmail.com'
 AUTHOR = 'Danny Burrows'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '0.1.4'
+VERSION = '0.1.5'
 
 INSTALL_REQUIRES = [
     "pywin32;platform_system=='Windows'"
