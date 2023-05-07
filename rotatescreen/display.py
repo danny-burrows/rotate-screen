@@ -74,7 +74,7 @@ def get_displays() -> List[Display]:
     return displays
 
 
-def get_primary_display() -> Display | None:
+def get_primary_display():
     for display in get_displays():
         if display.is_primary:
             return display
